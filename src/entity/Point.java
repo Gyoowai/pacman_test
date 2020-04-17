@@ -16,7 +16,7 @@ public class Point extends Entity implements Interactable
 	public boolean interact(Entity e) {
 		if(e instanceof Pacman) {
 			this.remove();
-			GameController.setCoinCount(GameController.getCoinCount()+1);
+			GameController.setScore(GameController.getScore()+1);
 		}
 		return true;
 	}

@@ -7,8 +7,6 @@ import logic.Sprites;
 
 public class Pacman extends Entity
 {
-	private Direction dir;
-	
 	@Override
 	public int getSymbol()
 	{
@@ -18,14 +16,5 @@ public class Pacman extends Entity
 		return Sprites.COMPACTOR_OFF;
 	}
 	
-	public Direction getDirection() {
-		return dir;
-	}
-	
-	public boolean step(Direction direction) {
-		this.move(direction);
-		
-		return true;
-	}
 
 }

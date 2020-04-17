@@ -1,5 +1,6 @@
 package entity.base;
 
+import javafx.geometry.Point2D;
 import logic.Direction;
 import logic.GameController;
 
@@ -8,7 +9,7 @@ public abstract class Entity
 	private int x;
 	private int y;
 	private Direction direction;
-	
+
 	public abstract int getSymbol();
 	
 	public void remove() {
@@ -46,8 +47,36 @@ public abstract class Entity
 			return false;
 		}
 	}
+	
+	public boolean movePossible(Direction dir) {
+		int targetx = x;
+		int targety = y;
+		
+		direction = dir; //Update move position
 
-	public Entity() {
+		switch(dir) {
+		case LEFT:
+			targetx -= 1;
+			break;
+		case UP:
+			targety -= 1;
+			break;
+		case RIGHT:
+			targetx += 1;
+			break;
+		case DOWN:
+			targety += 1;
+			break;
+		default:
+			break;
+		}
+		
+		if(GameController.getCurrentMap().isMovePossible(targetx, targety,this)) {
+			return true;}
+		return false;
+	}
+
+   	public Entity() {
 		direction = Direction.NONE;
 	}
 	
