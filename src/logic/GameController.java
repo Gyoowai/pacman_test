@@ -55,30 +55,50 @@ public class GameController
 		return gameMap;
 	}
 
-	public static void movePacman(Direction dir)
+	public static void movePacman()
 	{
-		pacman.move(dir);
+		pacman.move();
+		if (isPowerUp())
+		{
+			if (getPacmanX() == getGhost1X() && getPacmanY() == getGhost1Y())
+			{
+				ghost1.dead();
+			}
+			if (getPacmanX() == getGhost2X() && getPacmanY() == getGhost2Y())
+			{
+				ghost2.dead();
+			}
+		}
 	}
-	public static void moveGhost1() {
-		if(ghost1.getX()==pacman.getX()) {
-			if(ghost1.getY()>pacman.getY()) {
+
+	public static void moveGhost1()
+	{
+		if (ghost1.getX() == pacman.getX())
+		{
+			if (ghost1.getY() > pacman.getY())
+			{
 				setGhost1Direction(Direction.UP);
-			}else {
+			} else
+			{
 				setGhost1Direction(Direction.DOWN);
 			}
-		}else if(ghost1.getY()==pacman.getY()) {
-			if(ghost1.getX()>pacman.getX()) {
+		} else if (ghost1.getY() == pacman.getY())
+		{
+			if (ghost1.getX() > pacman.getX())
+			{
 				setGhost1Direction(Direction.LEFT);
-			}else {
+			} else
+			{
 				setGhost1Direction(Direction.RIGHT);
 			}
 		}
 		moveGhost1R();
 	}
+
 	public static void moveGhost1R()
 	{
 		Random r = new Random();
-		if (!ghost1.movePossible(getGhost1Direction()))
+		while (!ghost1.movePossible())
 		{
 			if (r.nextInt(4) == 0)
 			{
@@ -93,29 +113,39 @@ public class GameController
 			{
 				setGhost1Direction(Direction.RIGHT);
 			}
-		}ghost1.move(getGhost1Direction());
+		}
+		ghost1.move();
 
 	}
-	public static void moveGhost2() {
-		if(ghost2.getX()==pacman.getX()) {
-			if(ghost2.getY()>pacman.getY()) {
+
+	public static void moveGhost2()
+	{
+		if (ghost2.getX() == pacman.getX())
+		{
+			if (ghost2.getY() > pacman.getY())
+			{
 				setGhost2Direction(Direction.UP);
-			}else {
+			} else
+			{
 				setGhost2Direction(Direction.DOWN);
 			}
-		}else if(ghost2.getY()==pacman.getY()) {
-			if(ghost2.getX()>pacman.getX()) {
+		} else if (ghost2.getY() == pacman.getY())
+		{
+			if (ghost2.getX() > pacman.getX())
+			{
 				setGhost2Direction(Direction.LEFT);
-			}else {
+			} else
+			{
 				setGhost2Direction(Direction.RIGHT);
 			}
 		}
 		moveGhost2R();
 	}
+
 	public static void moveGhost2R()
 	{
 		Random r = new Random();
-		if (!ghost2.movePossible(getGhost2Direction()))
+		while (!ghost2.movePossible())
 		{
 			if (r.nextInt(4) == 0)
 			{
@@ -131,7 +161,7 @@ public class GameController
 				setGhost2Direction(Direction.RIGHT);
 			}
 		}
-		ghost2.move(getGhost1Direction());
+		ghost2.move();
 	}
 
 	public static Direction getPacmanDirection()
@@ -140,10 +170,8 @@ public class GameController
 	}
 
 	public static void setPacmanDirection(Direction dir)
-	{	
-		if(pacman.movePossible(dir)) {
-			pacman.setDirection(dir);
-		}
+	{
+		pacman.setDirection(dir);
 	}
 
 	public static Direction getGhost1Direction()
@@ -159,6 +187,51 @@ public class GameController
 	public static Direction getGhost2Direction()
 	{
 		return ghost2.getDirection();
+	}
+
+	public static int getGhost1X()
+	{
+		return ghost1.getX();
+	}
+
+	public static int getGhost2X()
+	{
+		return ghost2.getX();
+	}
+
+	public static int getGhost1Y()
+	{
+		return ghost1.getY();
+	}
+
+	public static int getGhost2Y()
+	{
+		return ghost2.getY();
+	}
+
+	public static int getPacmanX()
+	{
+		return pacman.getX();
+	}
+
+	public static int getPacmanY()
+	{
+		return pacman.getY();
+	}
+
+	public static int getPacmanSprite()
+	{
+		return pacman.getSymbol();
+	}
+
+	public static int getGhost1Sprite()
+	{
+		return ghost1.getSymbol();
+	}
+
+	public static int getGhost2Sprite()
+	{
+		return ghost2.getSymbol();
 	}
 
 	public static void setGhost2Direction(Direction dir)

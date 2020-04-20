@@ -1,29 +1,23 @@
 package entity;
 
-import entity.base.Entity;
-import entity.base.Interactable;
+import entity.base.MovingEntity;
 import logic.Direction;
 import logic.GameController;
 import logic.Sprites;
 
-public class Ghost extends Entity implements Interactable
+public class Ghost extends MovingEntity
 {
-	public Ghost() {
-		this.setDirection(Direction.UP);
-	}
-	
-	@Override
-	public boolean interact(Entity e)
-	{
-		if(GameController.isPowerUp() && e instanceof Pacman) {
-			this.remove();
-			//spawn new one
-		}else if(e instanceof Pacman) {
-			e.remove();
-		}
+	public boolean dead() {
+		this.setX(8);
+		this.setY(10);
+		setDirection(Direction.UP);
 		return true;
 	}
-
+	
+	public Ghost() {
+		setDirection(Direction.UP);
+	}
+	
 	@Override
 	public int getSymbol()
 	{	

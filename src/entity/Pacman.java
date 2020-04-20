@@ -1,12 +1,15 @@
 package entity;
 
-import entity.base.Entity;
+import entity.base.MovingEntity;
 import logic.Direction;
 import logic.GameController;
 import logic.Sprites;
 
-public class Pacman extends Entity
+public class Pacman extends MovingEntity
 {
+	public Pacman() {
+		setDirection(Direction.NONE);
+	}
 	@Override
 	public int getSymbol()
 	{

@@ -1,6 +1,5 @@
 package entity;
 
-import entity.base.Eatable;
 import entity.base.Entity;
 import entity.base.Interactable;
 import logic.GameController;

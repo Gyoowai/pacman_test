@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import logic.Cell;
 import logic.Direction;
 import logic.GameController;
+import logic.Sprites;
 
 import java.util.ArrayList;
 
@@ -56,7 +57,7 @@ public class Main extends Application
 		// Register Event
 		addEventListener(scene, gc);
 		
-		primaryStage.setTitle("ProgMeth is You");
+		primaryStage.setTitle("PacmanZa");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
@@ -66,8 +67,7 @@ public class Main extends Application
 			public void run()
 			{
 				while(true) {
-				// TODO Auto-generated method stub
-				GameController.movePacman(GameController.getPacmanDirection());
+				GameController.movePacman();
 				GameController.moveGhost1();
 				GameController.moveGhost2();
 				ArrayList<Entity> allEntity = GameController.getCurrentMap().getAllEntity();
@@ -76,7 +76,6 @@ public class Main extends Application
 					@Override
 					public void run()
 					{
-						// TODO Auto-generated method stub
 						drawGameBoard(gc);
 					}
 				});
@@ -110,7 +109,7 @@ public class Main extends Application
 		gc.fillRect(draw_originx, draw_originy, board_width, board_height);
 
 		Cell[][] gameBoard = GameController.getCurrentMap().getMap();
-
+		
 		int x = 0;
 		int y = 0;
 
@@ -127,7 +126,9 @@ public class Main extends Application
 			}
 			y += 1;
 		}
-
+		DrawUtil.drawSprite(gc, draw_originx + GameController.getGhost1X() * 24, draw_originy + GameController.getGhost1Y() * 24, GameController.getGhost1Sprite());
+		DrawUtil.drawSprite(gc, draw_originx + GameController.getGhost2X() * 24, draw_originy + GameController.getGhost2Y() * 24, GameController.getGhost2Sprite());
+		DrawUtil.drawSprite(gc, draw_originx + GameController.getPacmanX() * 24, draw_originy + GameController.getPacmanY() * 24, GameController.getPacmanSprite());
 		// If win, draw Congrats
 		if (GameController.isGameWin())
 		{

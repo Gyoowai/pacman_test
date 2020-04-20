@@ -11,6 +11,7 @@ import entity.PowerUp;
 import entity.Wall;
 import entity.base.Entity;
 import entity.base.Interactable;
+import entity.base.MovingEntity;
 
 public class GameMap {
 
@@ -115,6 +116,12 @@ public class GameMap {
 		
 		e.setX(x);
 		e.setY(y);
+		
+		if(e instanceof MovingEntity) {
+			System.out.println("hello");
+			return true;
+		}
+
 		boolean b = cellmap[y][x].setEntity(e);
 		
 		return b;
@@ -125,10 +132,10 @@ public class GameMap {
 	}
 	
 	public void removeEntity(int x, int y) {
-		
 		allEntity.remove(cellmap[y][x].getEntity());
-		
-		cellmap[y][x].removeEntity();
+		if(!(cellmap[y][x].getEntity() instanceof Ghost)) {
+			cellmap[y][x].removeEntity();
+		}
 	}
 	
 	public boolean isMovePossible(int targetx,int targety,Entity e) {
