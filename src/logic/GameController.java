@@ -25,6 +25,7 @@ public class GameController
 	private static boolean lose;
 
 	private static boolean PowerUp;
+	private static int powerUpTimeCount;
 
 	public static final int MAX_COOLDOWN_TIME = 11;
 
@@ -37,6 +38,7 @@ public class GameController
 		setScore(0);
 		setGameWin(false);
 		setPowerUp(false);
+		setPowerUpTimeCount(0);
 
 		gameMap = new GameMap(map);
 
@@ -68,6 +70,11 @@ public class GameController
 			{
 				ghost2.dead();
 			}
+			setPowerUpTimeCount(getPowerUpTimeCount()+1);
+		}
+		if(powerUpTimeCount==25) {
+			setPowerUp(false);
+			setPowerUpTimeCount(0);
 		}
 	}
 
@@ -278,5 +285,16 @@ public class GameController
 	{
 		GameController.PowerUp = PowerUp;
 	}
+
+	public static int getPowerUpTimeCount()
+	{
+		return powerUpTimeCount;
+	}
+
+	public static void setPowerUpTimeCount(int powerUpTimeCount)
+	{
+		GameController.powerUpTimeCount = powerUpTimeCount;
+	}
+	
 
 }

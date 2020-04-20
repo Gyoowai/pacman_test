@@ -118,7 +118,7 @@ public class GameMap {
 		e.setY(y);
 		
 		if(e instanceof MovingEntity) {
-			System.out.println("hello");
+			System.out.println("stop thread duay");
 			return true;
 		}
 
