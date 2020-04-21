@@ -197,8 +197,20 @@ public class Main extends Application
 				draw_originy + GameController.getGhost2Y() * 24, GameController.getGhost2Sprite());
 		DrawUtil.drawSprite(gc, draw_originx + GameController.getPacmanX() * 24,
 				draw_originy + GameController.getPacmanY() * 24, GameController.getPacmanSprite());
+		// If lose, draw Congrats
+		if (GameController.isGameLose())
+		{
+			// Darken the Screen
+			gc.setGlobalAlpha(0.8);
+			gc.setFill(Color.BLACK);
+			gc.fillRect(draw_originx, draw_originy, board_width, board_height);
+			// Revert the Alpha
+			gc.setGlobalAlpha(1);
+			// Draw Congratulations
+			DrawUtil.drawCongrats(gc, 427, 240);
+		}
 		// If win, draw Congrats
-		if (GameController.isGameWin())
+		if (GameController.getScore()==0)
 		{
 			// Darken the Screen
 			gc.setGlobalAlpha(0.8);

@@ -35,12 +35,12 @@ public class GameController
 		ghost1 = new Ghost();
 		ghost2 = new Ghost();
 
-		setScore(0);
 		setGameWin(false);
 		setPowerUp(false);
 		setPowerUpTimeCount(0);
 
 		gameMap = new GameMap(map);
+		setScore(gameMap.getAllPoint());
 
 		gameMap.addEntity(pacman, px, py);
 		gameMap.addEntity(ghost1, g1x, g1y);
@@ -77,7 +77,21 @@ public class GameController
 			setPowerUpTimeCount(0);
 		}
 	}
-
+	
+	public static void ghostKill() {
+		if (!isPowerUp())
+		{
+		if (getPacmanX() == getGhost1X() && getPacmanY() == getGhost1Y())
+		{
+			setGameLose(true);
+		}
+		if (getPacmanX() == getGhost2X() && getPacmanY() == getGhost2Y())
+		{
+			setGameLose(true);
+		}
+		}
+	}
+	
 	public static void moveGhost1()
 	{
 		if (ghost1.getX() == pacman.getX())
@@ -100,6 +114,7 @@ public class GameController
 			}
 		}
 		moveGhost1R();
+		ghostKill();
 	}
 
 	public static void moveGhost1R()
@@ -147,6 +162,7 @@ public class GameController
 			}
 		}
 		moveGhost2R();
+		ghostKill();
 	}
 
 	public static void moveGhost2R()
