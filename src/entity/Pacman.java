@@ -2,8 +2,7 @@ package entity;
 
 import entity.base.MovingEntity;
 import logic.Direction;
-import logic.GameController;
-import logic.Sprites;
+
 
 public class Pacman extends MovingEntity
 {
@@ -13,10 +12,7 @@ public class Pacman extends MovingEntity
 	@Override
 	public int getSymbol()
 	{
-		if(GameController.isPowerUp()) {
-			return Sprites.COMPACTOR_ON;
-		}
-		return Sprites.COMPACTOR_OFF;
+		return 0;
 	}
 	
 

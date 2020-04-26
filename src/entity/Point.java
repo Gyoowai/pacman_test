@@ -9,7 +9,7 @@ public class Point extends Entity implements Interactable
 {
 	@Override
 	public int getSymbol() {
-		return Sprites.COIN;
+		return Sprites.POINT;
 	}
 	
 	public boolean interact(Entity e) {

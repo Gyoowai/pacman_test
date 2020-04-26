@@ -1,13 +1,11 @@
 package logic;
 
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import entity.Ghost;
 import entity.Pacman;
-import javafx.application.Platform;
-import javafx.geometry.Point2D;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class GameController
 {
@@ -26,8 +24,9 @@ public class GameController
 
 	private static boolean PowerUp;
 	private static int powerUpTimeCount;
+	private static int powerupCount;
 
-	public static final int MAX_COOLDOWN_TIME = 11;
+	private static MediaPlayer mediaPlayer;
 
 	public static void IntializeMap(String[][] map, int px, int py, int g1x, int g1y, int g2x, int g2y)
 	{
@@ -38,6 +37,7 @@ public class GameController
 		setGameWin(false);
 		setPowerUp(false);
 		setPowerUpTimeCount(0);
+		setPowerupCount(0);
 
 		gameMap = new GameMap(map);
 		setScore(gameMap.getAllPoint());
@@ -60,37 +60,45 @@ public class GameController
 	public static void movePacman()
 	{
 		pacman.move();
+
+	}
+	
+	public static boolean killcheck() {
+		if(powerUpTimeCount==50*getPowerupCount()) {
+			setPowerUp(false);
+			setPowerUpTimeCount(0);
+			setPowerupCount(0);
+		}
 		if (isPowerUp())
 		{
+			setPowerUpTimeCount(getPowerUpTimeCount()+1);
 			if (getPacmanX() == getGhost1X() && getPacmanY() == getGhost1Y())
 			{
 				ghost1.dead();
+				return true;
 			}
 			if (getPacmanX() == getGhost2X() && getPacmanY() == getGhost2Y())
 			{
 				ghost2.dead();
+				return true;
 			}
-			setPowerUpTimeCount(getPowerUpTimeCount()+1);
-		}
-		if(powerUpTimeCount==25) {
-			setPowerUp(false);
-			setPowerUpTimeCount(0);
-		}
-	}
-	
-	public static void ghostKill() {
-		if (!isPowerUp())
+			
+		}else
 		{
-		if (getPacmanX() == getGhost1X() && getPacmanY() == getGhost1Y())
-		{
-			setGameLose(true);
+			if (getPacmanX() == getGhost1X() && getPacmanY() == getGhost1Y())
+			{
+				setGameLose(true);
+				return true;
+			}
+			if (getPacmanX() == getGhost2X() && getPacmanY() == getGhost2Y())
+			{
+				setGameLose(true);
+				return true;
+			}
 		}
-		if (getPacmanX() == getGhost2X() && getPacmanY() == getGhost2Y())
-		{
-			setGameLose(true);
+		return false;
+		
 		}
-		}
-	}
 	
 	public static void moveGhost1()
 	{
@@ -114,7 +122,6 @@ public class GameController
 			}
 		}
 		moveGhost1R();
-		ghostKill();
 	}
 
 	public static void moveGhost1R()
@@ -162,7 +169,6 @@ public class GameController
 			}
 		}
 		moveGhost2R();
-		ghostKill();
 	}
 
 	public static void moveGhost2R()
@@ -242,11 +248,6 @@ public class GameController
 		return pacman.getY();
 	}
 
-	public static int getPacmanSprite()
-	{
-		return pacman.getSymbol();
-	}
-
 	public static int getGhost1Sprite()
 	{
 		return ghost1.getSymbol();
@@ -254,7 +255,7 @@ public class GameController
 
 	public static int getGhost2Sprite()
 	{
-		return ghost2.getSymbol();
+		return ghost2.getSymbol2();
 	}
 
 	public static void setGhost2Direction(Direction dir)
@@ -310,6 +311,26 @@ public class GameController
 	public static void setPowerUpTimeCount(int powerUpTimeCount)
 	{
 		GameController.powerUpTimeCount = powerUpTimeCount;
+	}
+
+	public static int getPowerupCount()
+	{
+		return powerupCount;
+	}
+
+	public static void setPowerupCount(int powerupCount)
+	{
+		GameController.powerupCount = powerupCount;
+	}
+	public static void setSound(String name) {
+		String sound_path = ClassLoader.getSystemResource(name).toString();
+		Media media = new Media(sound_path);
+		mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setVolume(0.1);
+		mediaPlayer.setAutoPlay(true);
+	}
+	public static void stopSound() {
+		mediaPlayer.stop();
 	}
 	
 
